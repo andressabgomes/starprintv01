@@ -163,8 +163,8 @@ const ServiceHistoryManager = () => {
             key={star}
             className={`h-3 w-3 ${
               star <= rating 
-                ? 'fill-yellow-400 text-yellow-400' 
-                : 'text-gray-300'
+                ? 'fill-warning text-warning' 
+                : 'text-muted-foreground'
             }`}
           />
         ))}
@@ -197,10 +197,10 @@ const ServiceHistoryManager = () => {
   }
 
   return (
-    <Card>
+    <Card className="shadow-soft border-border">
       <CardHeader>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-title tracking-title">
             <History className="h-5 w-5" />
             Histórico de Atendimentos
           </CardTitle>

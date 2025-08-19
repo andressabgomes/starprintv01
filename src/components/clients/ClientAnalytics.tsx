@@ -111,25 +111,25 @@ const ClientAnalytics = () => {
 
   const getSegmentColor = (segment: string) => {
     const colors = {
-      'Industrial': 'bg-blue-100 text-blue-800',
-      'Lingerie': 'bg-pink-100 text-pink-800',
-      'Confecção': 'bg-purple-100 text-purple-800',
-      'Saúde': 'bg-green-100 text-green-800',
-      'Tecnologia': 'bg-indigo-100 text-indigo-800',
-      'Alimentação': 'bg-orange-100 text-orange-800',
-      'default': 'bg-gray-100 text-gray-800'
+      'Industrial': 'bg-muted text-muted-foreground',
+      'Lingerie': 'bg-muted text-muted-foreground',
+      'Confecção': 'bg-muted text-muted-foreground',
+      'Saúde': 'bg-muted text-muted-foreground',
+      'Tecnologia': 'bg-muted text-muted-foreground',
+      'Alimentação': 'bg-muted text-muted-foreground',
+      'default': 'bg-muted text-muted-foreground'
     };
     return colors[segment as keyof typeof colors] || colors.default;
   };
 
   const getSizeColor = (size: string) => {
     const colors = {
-      'micro': 'bg-red-100 text-red-800',
-      'small': 'bg-yellow-100 text-yellow-800',
-      'medium': 'bg-blue-100 text-blue-800',
-      'large': 'bg-green-100 text-green-800'
+      'micro': 'bg-muted text-muted-foreground',
+      'small': 'bg-muted text-muted-foreground',
+      'medium': 'bg-muted text-muted-foreground',
+      'large': 'bg-muted text-muted-foreground'
     };
-    return colors[size as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+    return colors[size as keyof typeof colors] || 'bg-muted text-muted-foreground';
   };
 
   if (loading) {
@@ -149,8 +149,8 @@ const ClientAnalytics = () => {
       {/* Header with time filter */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Analytics de Clientes</h2>
-          <p className="text-gray-600">Estatísticas e insights sobre seus clientes</p>
+          <h2 className="text-2xl font-title tracking-title text-foreground">Analytics de Clientes</h2>
+          <p className="text-muted-foreground">Estatísticas e insights sobre seus clientes</p>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-48">
@@ -167,13 +167,13 @@ const ClientAnalytics = () => {
 
       {/* Main Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Clientes</CardTitle>
             <Building2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.total}</div>
+            <div className="text-2xl font-bold text-foreground">{stats.total}</div>
             <p className="text-xs text-muted-foreground">
               {timeRange === 'all' ? 'Todos os clientes' : 
                timeRange === '30days' ? '+12% em relação ao mês anterior' :
@@ -183,39 +183,39 @@ const ClientAnalytics = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Clientes Estratégicos</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">{stats.strategic}</div>
+            <div className="text-2xl font-bold text-primary">{stats.strategic}</div>
             <p className="text-xs text-muted-foreground">
               {stats.total > 0 ? `${Math.round((stats.strategic / stats.total) * 100)}% do total` : '0% do total'}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Clientes Ativos</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.active}</div>
+            <div className="text-2xl font-bold text-success">{stats.active}</div>
             <p className="text-xs text-muted-foreground">
               {stats.total > 0 ? `${Math.round((stats.active / stats.total) * 100)}% do total` : '0% do total'}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Taxa de Conversão</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-primary">
               {stats.total > 0 ? `${Math.round(((stats.strategic + stats.regular) / stats.total) * 100)}%` : '0%'}
             </div>
             <p className="text-xs text-muted-foreground">
@@ -228,9 +228,9 @@ const ClientAnalytics = () => {
       {/* Distribution Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Segment Distribution */}
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 font-title tracking-title">
               <PieChart className="h-5 w-5" />
               Distribuição por Segmento
             </CardTitle>
@@ -262,9 +262,9 @@ const ClientAnalytics = () => {
         </Card>
 
         {/* Size Distribution */}
-        <Card>
+        <Card className="shadow-soft border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 font-title tracking-title">
               <BarChart3 className="h-5 w-5" />
               Distribuição por Porte
             </CardTitle>
@@ -299,9 +299,9 @@ const ClientAnalytics = () => {
       </div>
 
       {/* Status Breakdown */}
-      <Card>
+      <Card className="shadow-soft border-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 font-title tracking-title">
             <Activity className="h-5 w-5" />
             Status dos Clientes
           </CardTitle>
@@ -311,21 +311,21 @@ const ClientAnalytics = () => {
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600 mb-2">{stats.active}</div>
               <div className="text-sm text-muted-foreground">Ativos</div>
-              <Badge className="bg-green-100 text-green-800 mt-2">
+              <Badge className="bg-success text-success-foreground mt-2">
                 {stats.total > 0 ? `${Math.round((stats.active / stats.total) * 100)}%` : '0%'}
               </Badge>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-600 mb-2">{stats.inactive}</div>
+              <div className="text-3xl font-bold text-muted-foreground mb-2">{stats.inactive}</div>
               <div className="text-sm text-muted-foreground">Inativos</div>
-              <Badge className="bg-gray-100 text-gray-800 mt-2">
+              <Badge className="bg-muted text-muted-foreground mt-2">
                 {stats.total > 0 ? `${Math.round((stats.inactive / stats.total) * 100)}%` : '0%'}
               </Badge>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">{stats.suspended}</div>
+              <div className="text-3xl font-bold text-destructive mb-2">{stats.suspended}</div>
               <div className="text-sm text-muted-foreground">Suspensos</div>
-              <Badge className="bg-red-100 text-red-800 mt-2">
+              <Badge className="bg-destructive text-destructive-foreground mt-2">
                 {stats.total > 0 ? `${Math.round((stats.suspended / stats.total) * 100)}%` : '0%'}
               </Badge>
             </div>
@@ -334,16 +334,16 @@ const ClientAnalytics = () => {
       </Card>
 
       {/* Insights */}
-      <Card>
+      <Card className="shadow-soft border-border">
         <CardHeader>
-          <CardTitle>Insights e Recomendações</CardTitle>
+          <CardTitle className="font-title tracking-title">Insights e Recomendações</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {stats.strategic > stats.regular && (
-              <div className="p-4 bg-green-50 rounded-lg">
-                <h4 className="font-medium text-green-800 mb-2">✅ Boa Proporção de Clientes Estratégicos</h4>
-                <p className="text-sm text-green-700">
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">✅ Boa Proporção de Clientes Estratégicos</h4>
+                <p className="text-sm text-muted-foreground">
                   Você tem uma boa base de clientes estratégicos ({stats.strategic} de {stats.total}). 
                   Continue focando em manter esses relacionamentos.
                 </p>
@@ -351,9 +351,9 @@ const ClientAnalytics = () => {
             )}
             
             {stats.prospect > 0 && (
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <h4 className="font-medium text-blue-800 mb-2">🎯 Prospects Identificados</h4>
-                <p className="text-sm text-blue-700">
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">🎯 Prospects Identificados</h4>
+                <p className="text-sm text-muted-foreground">
                   Você tem {stats.prospect} prospect(s) no pipeline. Considere criar uma estratégia 
                   de conversão para transformá-los em clientes ativos.
                 </p>
@@ -361,9 +361,9 @@ const ClientAnalytics = () => {
             )}
 
             {stats.inactive > stats.active * 0.3 && (
-              <div className="p-4 bg-yellow-50 rounded-lg">
-                <h4 className="font-medium text-yellow-800 mb-2">⚠️ Atenção aos Clientes Inativos</h4>
-                <p className="text-sm text-yellow-700">
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">⚠️ Atenção aos Clientes Inativos</h4>
+                <p className="text-sm text-muted-foreground">
                   Você tem {stats.inactive} clientes inativos. Considere uma campanha de reativação 
                   para recuperar esses relacionamentos.
                 </p>
@@ -371,9 +371,9 @@ const ClientAnalytics = () => {
             )}
 
             {Object.keys(stats.bySegment).length > 0 && (
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <h4 className="font-medium text-purple-800 mb-2">📊 Diversificação de Segmentos</h4>
-                <p className="text-sm text-purple-700">
+              <div className="p-4 bg-muted rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">📊 Diversificação de Segmentos</h4>
+                <p className="text-sm text-muted-foreground">
                   Seus clientes estão distribuídos em {Object.keys(stats.bySegment).length} segmentos diferentes. 
                   Isso demonstra uma boa diversificação da base de clientes.
                 </p>

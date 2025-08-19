@@ -14,58 +14,62 @@ const ClientesSection = () => {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Gestão de Clientes</h1>
-            <p className="text-sm text-gray-600 mt-1">Gerencie seus clientes e histórico de serviços</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2 bg-blue-50 px-3 py-1 rounded-full">
-              <Building2 className="h-4 w-4 text-blue-600" />
-              <span className="text-sm text-blue-700 font-medium">59 clientes cadastrados</span>
+      <div className="bg-card border-b border-border">
+        <div className="container mx-auto max-w-container px-4 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-title tracking-title text-foreground">Gestão de Clientes</h1>
+              <p className="text-muted-foreground mt-1">Gerencie seus clientes e histórico de serviços</p>
             </div>
-            <div className="flex items-center space-x-2 bg-green-50 px-3 py-1 rounded-full">
-              <Users className="h-4 w-4 text-green-600" />
-              <span className="text-sm text-green-700 font-medium">49 estratégicos</span>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 bg-muted px-3 py-1 rounded-full">
+                <Building2 className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground font-medium">59 clientes cadastrados</span>
+              </div>
+              <div className="flex items-center space-x-2 bg-muted px-3 py-1 rounded-full">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground font-medium">49 estratégicos</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-white border-b border-gray-200 px-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="h-12 bg-transparent p-0 space-x-8">
-            <TabsTrigger 
-              value="gestao" 
-              className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:bg-transparent rounded-none"
-            >
-              <Building2 className="h-4 w-4" />
-              <span>Gestão de Clientes</span>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="historico" 
-              className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:bg-transparent rounded-none"
-            >
-              <History className="h-4 w-4" />
-              <span>Histórico de Serviços</span>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="analytics" 
-              className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-blue-600 data-[state=active]:bg-transparent rounded-none"
-            >
-              <BarChart3 className="h-4 w-4" />
-              <span>Analytics</span>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+      <div className="bg-card border-b border-border">
+        <div className="container mx-auto max-w-container px-4">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="h-12 bg-transparent p-0 space-x-8">
+              <TabsTrigger 
+                value="gestao" 
+                className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent rounded-none"
+              >
+                <Building2 className="h-4 w-4" />
+                <span>Gestão de Clientes</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="historico" 
+                className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent rounded-none"
+              >
+                <History className="h-4 w-4" />
+                <span>Histórico de Serviços</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="analytics" 
+                className="flex items-center space-x-2 h-12 px-0 border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent rounded-none"
+              >
+                <BarChart3 className="h-4 w-4" />
+                <span>Analytics</span>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="container mx-auto max-w-container px-4 py-6">
         <Tabs value={activeTab} className="w-full">
           <TabsContent value="gestao" className="mt-6">
             <ClientsManagement />

@@ -129,9 +129,9 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ client, onClientUpdat
           Editar
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto shadow-soft border-border">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 font-title tracking-title">
             <Edit className="h-5 w-5" />
             Editar Cliente - {client.company_name}
           </DialogTitle>
@@ -273,11 +273,11 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ client, onClientUpdat
                        address.address_type === 'billing' ? 'Cobrança' : 
                        address.address_type === 'delivery' ? 'Entrega' : 'Outro'}
                     </Badge>
-                    {address.is_primary && (
-                      <Badge className="text-xs bg-green-100 text-green-800">
-                        Primário
-                      </Badge>
-                    )}
+                                         {address.is_primary && (
+                       <Badge className="text-xs bg-success text-success-foreground">
+                         Primário
+                       </Badge>
+                     )}
                   </div>
                   <p className="text-sm">
                     {address.street}, {address.number}
@@ -310,16 +310,16 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ client, onClientUpdat
                          contact.contact_type === 'email' ? 'Email' : 
                          contact.contact_type === 'whatsapp' ? 'WhatsApp' : 'Fax'}
                       </Badge>
-                      {contact.is_primary && (
-                        <Badge className="text-xs bg-green-100 text-green-800">
-                          Primário
-                        </Badge>
-                      )}
-                      {contact.is_whatsapp && (
-                        <Badge className="text-xs bg-green-100 text-green-800">
-                          WhatsApp
-                        </Badge>
-                      )}
+                                             {contact.is_primary && (
+                         <Badge className="text-xs bg-success text-success-foreground">
+                           Primário
+                         </Badge>
+                       )}
+                       {contact.is_whatsapp && (
+                         <Badge className="text-xs bg-success text-success-foreground">
+                           WhatsApp
+                         </Badge>
+                       )}
                     </div>
                     <p className="font-mono">{contact.contact_value}</p>
                     {contact.description && (
@@ -344,16 +344,16 @@ const EditClientModal: React.FC<EditClientModalProps> = ({ client, onClientUpdat
                   <div key={person.id} className="p-3 bg-muted rounded-lg text-sm">
                     <div className="flex items-center gap-2 mb-2">
                       <h4 className="font-medium">{person.name}</h4>
-                      {person.is_primary && (
-                        <Badge className="text-xs bg-green-100 text-green-800">
-                          Contato Principal
-                        </Badge>
-                      )}
-                      {person.is_decision_maker && (
-                        <Badge className="text-xs bg-blue-100 text-blue-800">
-                          Tomador de Decisão
-                        </Badge>
-                      )}
+                                             {person.is_primary && (
+                         <Badge className="text-xs bg-success text-success-foreground">
+                           Contato Principal
+                         </Badge>
+                       )}
+                       {person.is_decision_maker && (
+                         <Badge className="text-xs bg-primary text-primary-foreground">
+                           Tomador de Decisão
+                         </Badge>
+                       )}
                     </div>
                     {person.role && <p><strong>Cargo:</strong> {person.role}</p>}
                     {person.department && <p><strong>Departamento:</strong> {person.department}</p>}

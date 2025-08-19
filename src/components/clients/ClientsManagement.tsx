@@ -134,20 +134,20 @@ const ClientsManagement = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'suspended': return 'bg-red-100 text-red-800';
-      case 'prospect': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active': return 'bg-success text-success-foreground';
+      case 'inactive': return 'bg-muted text-muted-foreground';
+      case 'suspended': return 'bg-destructive text-destructive-foreground';
+      case 'prospect': return 'bg-primary text-primary-foreground';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'strategic': return 'bg-purple-100 text-purple-800';
-      case 'regular': return 'bg-blue-100 text-blue-800';
-      case 'prospect': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'strategic': return 'bg-primary text-primary-foreground';
+      case 'regular': return 'bg-muted text-muted-foreground';
+      case 'prospect': return 'bg-warning text-warning-foreground';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 
@@ -178,10 +178,10 @@ const ClientsManagement = () => {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="shadow-soft border-border">
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 font-title tracking-title">
               <Building2 className="h-5 w-5" />
               Cadastro de Clientes
             </CardTitle>
@@ -238,7 +238,7 @@ const ClientsManagement = () => {
               {filteredClients.map((client) => (
                 <div 
                   key={client.id} 
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors shadow-soft"
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -296,9 +296,9 @@ const ClientsManagement = () => {
 
       {/* Client Details Modal */}
       <Dialog open={viewDetailsOpen} onOpenChange={setViewDetailsOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto shadow-soft border-border">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2 font-title tracking-title">
               <Building2 className="h-5 w-5" />
               Detalhes do Cliente
             </DialogTitle>
@@ -363,7 +363,7 @@ const ClientsManagement = () => {
                              address.address_type === 'delivery' ? 'Entrega' : 'Outro'}
                           </Badge>
                           {address.is_primary && (
-                            <Badge className="text-xs bg-green-100 text-green-800">
+                            <Badge className="text-xs bg-success text-success-foreground">
                               Primário
                             </Badge>
                           )}
@@ -400,12 +400,12 @@ const ClientsManagement = () => {
                              contact.contact_type === 'whatsapp' ? 'WhatsApp' : 'Fax'}
                           </Badge>
                           {contact.is_primary && (
-                            <Badge className="text-xs bg-green-100 text-green-800">
+                            <Badge className="text-xs bg-success text-success-foreground">
                               Primário
                             </Badge>
                           )}
                           {contact.is_whatsapp && (
-                            <Badge className="text-xs bg-green-100 text-green-800">
+                            <Badge className="text-xs bg-success text-success-foreground">
                               WhatsApp
                             </Badge>
                           )}
@@ -433,12 +433,12 @@ const ClientsManagement = () => {
                         <div className="flex items-center gap-2 mb-2">
                           <h4 className="font-medium">{person.name}</h4>
                           {person.is_primary && (
-                            <Badge className="text-xs bg-green-100 text-green-800">
+                            <Badge className="text-xs bg-success text-success-foreground">
                               Contato Principal
                             </Badge>
                           )}
                           {person.is_decision_maker && (
-                            <Badge className="text-xs bg-blue-100 text-blue-800">
+                            <Badge className="text-xs bg-primary text-primary-foreground">
                               Tomador de Decisão
                             </Badge>
                           )}
