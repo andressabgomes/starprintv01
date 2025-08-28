@@ -1,227 +1,339 @@
-# 🚀 StarPrint CRM - Sistema de Gestão de Relacionamento com Cliente
+# 🚀 StarPrint CRM - Sistema de Atendimento
 
-## 📋 Sobre o Projeto
+## 📋 Visão Geral
 
-O **StarPrint CRM** é um sistema completo de gestão de relacionamento com cliente desenvolvido para empresas de impressão. O sistema oferece funcionalidades avançadas de atendimento, gestão de equipe, monitoramento em tempo real e relatórios detalhados.
+O **StarPrint CRM** é um sistema completo de gestão de relacionamento com clientes (CRM) desenvolvido para equipes comerciais e de atendimento. O sistema oferece um painel orientado a valor com foco em eficiência operacional, qualidade de decisão e adoção.
 
-## ✨ Funcionalidades Principais
+### 🎯 Objetivos do Sistema
 
-### 🎯 Dashboard Inteligente
-- KPIs em tempo real
-- Gráficos interativos
-- Métricas de performance
-- Status do sistema
+- **Eficiência Operacional**: Automatização de processos e otimização de fluxos de trabalho
+- **Qualidade de Decisão**: Insights baseados em dados para tomada de decisões estratégicas
+- **Adoção**: Interface intuitiva e experiência do usuário otimizada
+- **Valor Comercial**: Foco em receita, conversão e retenção de clientes
 
-### 💬 Atendimento ao Cliente
-- **Chat em tempo real** com interface moderna
-- **Fila de atendimento** inteligente
-- **Base de conhecimento** com artigos organizados
-- **Sistema de avaliação NPS**
-- **Gestão de tickets** completa
+## 🏗️ Arquitetura do Sistema
 
-### 👥 Gestão de Equipe
-- Controle de escalas e presenças
-- Monitoramento de performance
-- Metas e indicadores
-- Cobertura da equipe
+### Stack Tecnológica
 
-### 📊 Monitoramento e Relatórios
-- Monitoramento em tempo real
-- Relatórios customizáveis
-- Exportação de dados
-- Análises avançadas
+- **Frontend**: React 18 + TypeScript
+- **UI Framework**: Shadcn/ui + Tailwind CSS
+- **Backend**: Supabase (PostgreSQL + Auth + Real-time)
+- **Build Tool**: Vite
+- **Roteamento**: React Router DOM
+- **Estado**: React Hooks + Context API
+- **Formulários**: React Hook Form + Zod
+- **Notificações**: Sonner Toast
 
-### ⚙️ Administração
-- Configurações do sistema
-- Gestão de usuários
-- Controle de permissões
+### Estrutura do Projeto
 
-## 🛠️ Tecnologias Utilizadas
+```
+atendimento-turbo-agora-main/
+├── src/
+│   ├── components/
+│   │   ├── clients/           # Módulo de Gestão de Clientes
+│   │   ├── atendimento/       # Módulo de Atendimento
+│   │   ├── dashboard/         # Dashboards e Analytics
+│   │   ├── layouts/           # Componentes de Layout
+│   │   └── ui/               # Componentes UI Reutilizáveis
+│   ├── config/               # Configurações do Sistema
+│   ├── contexts/             # Contextos React
+│   ├── hooks/                # Hooks Customizados
+│   ├── integrations/         # Integrações Externas
+│   ├── lib/                  # Utilitários
+│   ├── types/                # Definições de Tipos TypeScript
+│   └── utils/                # Funções Utilitárias
+├── supabase/                 # Configuração e Migrações do Banco
+└── public/                   # Arquivos Estáticos
+```
 
-### Frontend
-- **React 18** - Biblioteca principal
-- **TypeScript** - Tipagem estática
-- **Vite** - Bundler e dev server
-- **Tailwind CSS** - Estilização
-- **Shadcn/ui** - Componentes
-- **React Router** - Navegação
-- **React Query** - Gerenciamento de estado
-- **Recharts** - Gráficos
+## 🚀 Funcionalidades Principais
 
-### Backend
-- **Supabase** - Backend as a Service
-- **PostgreSQL** - Banco de dados
-- **Row Level Security** - Segurança
-- **Real-time** - Atualizações em tempo real
+### 1. 📊 Dashboard Executivo
+- **Visão Geral**: Métricas de performance em tempo real
+- **KPIs Estratégicos**: Receita, conversão, satisfação, crescimento
+- **Alertas Inteligentes**: Notificações de oportunidades e riscos
+- **Gráficos Interativos**: Visualizações de dados comerciais
 
-### Ferramentas
-- **ESLint** - Linting
-- **Prettier** - Formatação
-- **Husky** - Git hooks
-- **Vitest** - Testes
+### 2. 👥 Gestão de Clientes (Painel de Valor)
+- **Cadastro Completo**: Formulário abrangente com validações
+- **Métricas Rápidas**: Indicadores de performance por cliente
+- **Insights Estratégicos**: Recomendações baseadas em dados
+- **Filtros Avançados**: Busca e classificação inteligente
+- **Histórico de Serviços**: Rastreamento completo de interações
 
-## 🚀 Como Executar
+#### Campos do Cadastro de Clientes:
+- **Informações Básicas**: Código, razão social, documento, tipo, segmento
+- **Endereços**: Múltiplos endereços (principal, cobrança, entrega)
+- **Contatos**: Telefone, email, WhatsApp, fax
+- **Pessoas de Contato**: Nome, cargo, departamento, tomador de decisão
+
+### 3. 🎯 Analytics Avançado
+- **Métricas Comerciais**: Receita, ticket médio, conversão
+- **Análise de Segmentos**: Distribuição por tipo de cliente
+- **Performance de Equipe**: Top performers e indicadores
+- **Tendências**: Análise temporal de crescimento
+- **Insights Automáticos**: Recomendações baseadas em dados
+
+### 4. 📞 Atendimento ao Cliente
+- **Central de Atendimento**: Interface unificada para suporte
+- **Base de Conhecimento**: Artigos e soluções
+- **Fila de Atendimento**: Gestão de tickets e prioridades
+- **Avaliações**: Sistema de feedback e satisfação
+- **Chat Integrado**: Comunicação em tempo real
+
+### 5. 👨‍💼 Gestão de Equipe
+- **Cadastro de Colaboradores**: Perfis e permissões
+- **Escalas e Presenças**: Controle de horários
+- **Metas e Desempenho**: Acompanhamento de objetivos
+- **Monitoramento**: Atividades em tempo real
+
+### 6. 📈 Relatórios e Exportações
+- **Relatórios Personalizados**: Configuração de métricas
+- **Exportação de Dados**: Múltiplos formatos
+- **Dashboards Executivos**: Visão estratégica
+- **Análises Comparativas**: Benchmarking interno
+
+## 🛠️ Instalação e Configuração
 
 ### Pré-requisitos
+
 - Node.js 18+ 
 - npm ou yarn
 - Conta no Supabase
 
-### Instalação
+### 1. Clone do Repositório
 
-1. **Clone o repositório**
 ```bash
 git clone <repository-url>
-cd atendimento-turbo-agora
+cd atendimento-turbo-agora-main
 ```
 
-2. **Instale as dependências**
+### 2. Instalação de Dependências
+
 ```bash
 npm install
 ```
 
-3. **Configure as variáveis de ambiente**
+### 3. Configuração do Supabase
+
+1. Crie um projeto no [Supabase](https://supabase.com)
+2. Configure as variáveis de ambiente:
+
 ```bash
 cp env.example .env.local
 ```
 
-Edite o arquivo `.env.local` com suas configurações:
+Edite o arquivo `.env.local`:
+
 ```env
 VITE_SUPABASE_URL=sua_url_do_supabase
 VITE_SUPABASE_ANON_KEY=sua_chave_anonima
-VITE_APP_NAME=StarPrint CRM
-VITE_DEBUG_MODE=true
 ```
 
-4. **Execute o projeto**
+### 4. Execução das Migrações
+
 ```bash
+# Instale o CLI do Supabase
+npm install -g supabase
+
+# Execute as migrações
+supabase db push
+```
+
+### 5. Inicialização dos Dados
+
+```bash
+# Execute os scripts de inserção de dados
+node scripts/insert-main-clients.js
+node scripts/insert-client-details.js
+```
+
+### 6. Execução do Projeto
+
+```bash
+# Modo de desenvolvimento
 npm run dev
+
+# Build de produção
+npm run build
+
+# Preview da build
+npm run preview
 ```
 
-O projeto estará disponível em: **http://localhost:8080**
+## 📖 Guia de Uso
 
-## 📁 Estrutura do Projeto
+### Acessando o Sistema
 
-```
-src/
-├── components/          # Componentes React
-│   ├── ui/             # Componentes base (Shadcn/ui)
-│   ├── atendimento/    # Módulo de atendimento
-│   ├── dashboard/      # Componentes do dashboard
-│   ├── layouts/        # Layouts da aplicação
-│   └── shared/         # Componentes compartilhados
-├── hooks/              # Custom hooks
-├── contexts/           # Contextos React
-├── utils/              # Utilitários
-├── types/              # Definições de tipos
-├── constants/          # Constantes da aplicação
-├── integrations/       # Integrações externas
-└── pages/              # Páginas da aplicação
-```
+1. **URL**: http://localhost:8080 (desenvolvimento)
+2. **Login**: Use as credenciais configuradas no Supabase
+3. **Navegação**: Menu lateral com todos os módulos
 
-## 🔧 Scripts Disponíveis
+### Cadastrando um Cliente
 
-```bash
-# Desenvolvimento
-npm run dev              # Inicia o servidor de desenvolvimento
-npm run build            # Build para produção
-npm run build:dev        # Build para desenvolvimento
-npm run build:prod       # Build otimizado para produção
-npm run preview          # Preview do build
+1. **Acesse**: "Gestão de Clientes" no menu lateral
+2. **Clique**: Botão "Novo Cliente" (azul destacado)
+3. **Preencha**: Informações básicas obrigatórias
+4. **Adicione**: Endereços, contatos e pessoas conforme necessário
+5. **Salve**: Clique em "Cadastrar Cliente"
 
-# Qualidade de Código
-npm run lint             # Executa o ESLint
-npm run lint:fix         # Corrige problemas do ESLint
-npm run type-check       # Verifica tipos TypeScript
-npm run format           # Formata o código com Prettier
-npm run format:check     # Verifica formatação
+### Utilizando o Analytics
 
-# Testes
-npm run test             # Executa testes
-npm run test:ui          # Interface de testes
-npm run test:coverage    # Cobertura de testes
+1. **Acesse**: Aba "Analytics Avançado"
+2. **Configure**: Período de análise (7 dias, 30 dias, etc.)
+3. **Visualize**: Métricas e insights automáticos
+4. **Aja**: Siga as recomendações apresentadas
 
-# Análise
-npm run build:analyze    # Analisa o bundle
+### Gerenciando Atendimentos
+
+1. **Acesse**: "Atendimento ao Cliente"
+2. **Visualize**: Fila de atendimentos
+3. **Atenda**: Clique no ticket para iniciar
+4. **Registre**: Soluções e feedback do cliente
+
+## 🔧 Configurações Avançadas
+
+### Personalização de Temas
+
+Edite `src/styles/app.css` para customizar cores e estilos:
+
+```css
+:root {
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  /* Outras variáveis de cor */
+}
 ```
 
-## 🗄️ Banco de Dados
+### Configuração de Permissões
 
-O projeto utiliza **Supabase** com as seguintes tabelas principais:
+Configure roles no Supabase:
 
-- `nps_responses` - Avaliações de satisfação
-- `strategic_clients` - Clientes estratégicos
-- `tickets` - Tickets de atendimento
-- `monitoring_sessions` - Sessões de monitoramento
-- `team_capacity` - Capacidade da equipe
+```sql
+-- Exemplo de configuração de RLS
+CREATE POLICY "Users can view own data" ON clients
+FOR SELECT USING (auth.uid() = user_id);
+```
 
-### Migrations
-As migrations estão localizadas em `supabase/migrations/` e podem ser executadas via Supabase CLI.
+### Integração com APIs Externas
 
-## 🔐 Autenticação
+Adicione integrações em `src/integrations/`:
 
-O sistema utiliza autenticação baseada em roles:
-- **Admin** - Acesso completo
-- **Manager** - Gestão de equipe
-- **User** - Atendimento básico
+```typescript
+// Exemplo de integração
+export const externalAPI = {
+  baseURL: process.env.VITE_API_URL,
+  headers: {
+    'Authorization': `Bearer ${process.env.VITE_API_KEY}`
+  }
+};
+```
 
-## 📱 Responsividade
+## 📊 Métricas e KPIs
 
-O projeto é totalmente responsivo e otimizado para:
-- 📱 Mobile (320px+)
-- 📱 Tablet (768px+)
-- 💻 Desktop (1024px+)
-- 🖥️ Large screens (1280px+)
+### Métricas Principais
 
-## 🎨 Temas
+- **Receita Total**: Valor total gerado
+- **Taxa de Conversão**: % de prospects convertidos
+- **Satisfação**: Score médio de satisfação
+- **Tempo de Resposta**: Tempo médio de atendimento
+- **Retenção**: % de clientes retidos
+- **Churn Rate**: % de clientes perdidos
 
-O sistema suporta:
-- 🌞 Tema claro
-- 🌙 Tema escuro
-- 🎨 Tema automático
+### Alertas Automáticos
+
+- Clientes em risco (pagamento em atraso)
+- Contatos em atraso (>30 dias)
+- Metas não atingidas
+- Oportunidades de crescimento
+
+## 🔒 Segurança
+
+### Autenticação
+
+- **Supabase Auth**: Sistema robusto de autenticação
+- **JWT Tokens**: Tokens seguros e renováveis
+- **RLS (Row Level Security)**: Controle de acesso a dados
+
+### Proteção de Dados
+
+- **Validação**: Todos os inputs são validados
+- **Sanitização**: Dados limpos antes do processamento
+- **HTTPS**: Comunicação criptografada
 
 ## 🚀 Deploy
 
-### Vercel (Recomendado)
-1. Conecte seu repositório ao Vercel
-2. Configure as variáveis de ambiente
-3. Deploy automático
+### Deploy no Vercel
 
-### Netlify
-1. Conecte o repositório
-2. Configure build settings
-3. Deploy
+1. **Conecte** o repositório ao Vercel
+2. **Configure** as variáveis de ambiente
+3. **Deploy** automático a cada push
 
-### Outros
-O projeto pode ser deployado em qualquer plataforma que suporte aplicações React.
+### Deploy no Netlify
 
-## 🤝 Contribuição
+1. **Conecte** o repositório ao Netlify
+2. **Configure** build command: `npm run build`
+3. **Configure** publish directory: `dist`
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+### Deploy Manual
+
+```bash
+# Build de produção
+npm run build
+
+# Servir arquivos estáticos
+npm run preview
+```
+
+## 🐛 Troubleshooting
+
+### Problemas Comuns
+
+#### Erro de Conexão com Supabase
+```bash
+# Verifique as variáveis de ambiente
+echo $VITE_SUPABASE_URL
+echo $VITE_SUPABASE_ANON_KEY
+```
+
+#### Erro de Build
+```bash
+# Limpe cache e reinstale dependências
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### Erro de Migração
+```bash
+# Reset do banco (cuidado!)
+supabase db reset
+```
+
+## 📞 Suporte
+
+### Documentação Adicional
+
+- **API Docs**: `/docs/api`
+- **Componentes**: `/docs/components`
+- **Guia de Estilo**: `/docs/styleguide`
+
+### Contato
+
+- **Email**: suporte@starprint.com
+- **Telefone**: (11) 9999-9999
+- **Chat**: Disponível no sistema
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## 🆘 Suporte
+## 🤝 Contribuição
 
-Para suporte, entre em contato:
-- 📧 Email: suporte@starprint.com
-- 💬 Discord: [Link do servidor]
-- 📖 Documentação: [Link da documentação]
-
-## 🔄 Changelog
-
-### v1.0.0 (2024-01-XX)
-- ✨ Lançamento inicial
-- 🎯 Dashboard completo
-- 💬 Sistema de atendimento
-- 👥 Gestão de equipe
-- 📊 Relatórios avançados
+1. **Fork** o projeto
+2. **Crie** uma branch para sua feature
+3. **Commit** suas mudanças
+4. **Push** para a branch
+5. **Abra** um Pull Request
 
 ---
 

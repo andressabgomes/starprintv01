@@ -1,0 +1,268 @@
+{
+  "name": "starprint-crm-mobile",
+  "version": "2.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "build:android": "expo build:android",
+    "build:ios": "expo build:ios",
+    "publish": "expo publish",
+    "prebuild": "expo prebuild",
+    "build": "expo build",
+    "submit": "expo submit"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-native": "0.73.2",
+    "react-native-web": "~0.19.6",
+    "@expo/webpack-config": "~19.0.1",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "react-native-screens": "~3.29.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-reanimated": "~3.6.2",
+    "@supabase/supabase-js": "^2.39.0",
+    "react-native-url-polyfill": "^2.0.0",
+    "expo-secure-store": "~12.8.1",
+    "expo-notifications": "~0.27.6",
+    "expo-device": "~5.9.3",
+    "expo-constants": "~15.4.5",
+    "expo-linking": "~6.2.2",
+    "expo-splash-screen": "~0.26.4",
+    "expo-updates": "~0.24.9",
+    "expo-camera": "~14.0.3",
+    "expo-image-picker": "~14.7.1",
+    "expo-file-system": "~16.0.5",
+    "expo-sharing": "~11.10.0",
+    "expo-print": "~12.8.1",
+    "expo-barcode-scanner": "~12.9.2",
+    "expo-location": "~16.5.2",
+    "expo-sensors": "~12.9.1",
+    "expo-haptics": "~12.8.1",
+    "expo-av": "~13.10.4",
+    "expo-speech": "~11.7.0",
+    "react-native-paper": "^5.11.4",
+    "react-native-vector-icons": "^10.0.3",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-svg": "14.1.0",
+    "react-native-modal": "^13.0.1",
+    "react-native-elements": "^3.4.3",
+    "react-native-paper-dates": "^0.18.0",
+    "react-native-calendars": "^1.1300.0",
+    "react-native-image-crop-picker": "^0.40.2",
+    "react-native-qrcode-svg": "^6.3.0",
+    "react-native-signature-canvas": "^4.0.0",
+    "react-native-fingerprint-scanner": "^6.0.0",
+    "react-native-biometrics": "^3.0.1",
+    "react-native-keychain": "^8.1.3",
+    "react-native-async-storage": "^1.21.0",
+    "react-native-netinfo": "^11.2.1",
+    "react-native-background-job": "^2.2.0",
+    "react-native-background-timer": "^2.4.1",
+    "react-native-push-notification": "^8.1.1",
+    "react-native-local-notifications": "^2.1.7",
+    "react-native-sound": "^0.11.2",
+    "react-native-vibration": "^0.2.0",
+    "react-native-share": "^10.0.2",
+    "react-native-fs": "^2.20.0",
+    "react-native-pdf": "^6.7.4",
+    "react-native-htmlview": "^0.16.0",
+    "react-native-markdown-display": "^7.0.0-alpha.2",
+    "react-native-render-html": "^6.3.4",
+    "react-native-webview": "13.6.4",
+    "react-native-blob-util": "^0.19.6",
+    "react-native-image-resizer": "^1.4.5",
+    "react-native-image-crop-tools": "^1.3.8",
+    "react-native-document-picker": "^9.0.1",
+    "react-native-permissions": "^4.1.1",
+    "react-native-device-info": "^10.11.0",
+    "react-native-app-version": "^1.0.0",
+    "react-native-orientation-locker": "^1.5.0",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-masked-text": "^1.13.0",
+    "react-native-text-input-mask": "^3.0.0",
+    "react-native-credit-card-input": "^0.4.1",
+    "react-native-phone-number-input": "^1.0.0",
+    "react-native-country-picker-modal": "^2.0.0",
+    "react-native-currency-formatter": "^1.0.0",
+    "react-native-number-format": "^1.0.0",
+    "react-native-date-picker": "^4.3.3",
+    "react-native-time-picker": "^1.0.0",
+    "react-native-wheel-picker": "^1.2.0",
+    "react-native-picker-select": "^9.1.1",
+    "react-native-dropdown-picker": "^5.4.6",
+    "react-native-multi-select": "^0.5.11",
+    "react-native-check-box": "^2.1.7",
+    "react-native-radio-button": "^2.0.0",
+    "react-native-slider": "^0.11.0",
+    "react-native-range-slider": "^1.0.0",
+    "react-native-progress": "^5.0.0",
+    "react-native-circular-progress": "^1.3.7",
+    "react-native-super-grid": "^4.8.1",
+    "react-native-flatlist-slider": "^1.0.0",
+    "react-native-snap-carousel": "^4.0.0-beta.6",
+    "react-native-swiper": "^1.6.0",
+    "react-native-swipe-list-view": "^3.2.9",
+    "react-native-sortable-list": "^0.0.22",
+    "react-native-draggable-flatlist": "^4.0.1",
+    "react-native-collapsible": "^1.6.1",
+    "react-native-accordion": "^1.0.0",
+    "react-native-tab-view": "^3.5.2",
+    "react-native-tab-bar": "^3.0.0",
+    "react-native-segmented-control-tab": "^4.0.0",
+    "react-native-stepper": "^1.0.0",
+    "react-native-wizard": "^1.0.0",
+    "react-native-onboarding-swiper": "^1.1.4",
+    "react-native-intro-slider": "^1.3.0",
+    "react-native-super-grid": "^4.8.1",
+    "react-native-flatlist-slider": "^1.0.0",
+    "react-native-snap-carousel": "^4.0.0-beta.6",
+    "react-native-swiper": "^1.6.0",
+    "react-native-swipe-list-view": "^3.2.9",
+    "react-native-sortable-list": "^0.0.22",
+    "react-native-draggable-flatlist": "^4.0.1",
+    "react-native-collapsible": "^1.6.1",
+    "react-native-accordion": "^1.0.0",
+    "react-native-tab-view": "^3.5.2",
+    "react-native-tab-bar": "^3.0.0",
+    "react-native-segmented-control-tab": "^4.0.0",
+    "react-native-stepper": "^1.0.0",
+    "react-native-wizard": "^1.0.0",
+    "react-native-onboarding-swiper": "^1.1.4",
+    "react-native-intro-slider": "^1.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "@types/react-native": "~0.73.0",
+    "typescript": "^5.1.3",
+    "@expo/config": "~8.0.0",
+    "@expo/metro-config": "~0.17.1",
+    "metro-config": "~0.80.1",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "private": true,
+  "expo": {
+    "name": "StarPrint CRM",
+    "slug": "starprint-crm",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3b82f6"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.starprint.crm",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Este app precisa acessar a câmera para escanear QR codes e capturar fotos de documentos.",
+        "NSPhotoLibraryUsageDescription": "Este app precisa acessar a galeria para selecionar imagens de documentos.",
+        "NSLocationWhenInUseUsageDescription": "Este app precisa acessar a localização para funcionalidades de mapeamento.",
+        "NSMicrophoneUsageDescription": "Este app precisa acessar o microfone para gravação de áudio.",
+        "NSFaceIDUsageDescription": "Este app usa Face ID para autenticação segura.",
+        "UIBackgroundModes": [
+          "remote-notification",
+          "background-fetch",
+          "background-processing"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3b82f6"
+      },
+      "package": "com.starprint.crm",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.VIBRATE",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.WAKE_LOCK",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.FOREGROUND_SERVICE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-notifications",
+      "expo-camera",
+      "expo-image-picker",
+      "expo-location",
+      "expo-sensors",
+      "expo-haptics",
+      "expo-av",
+      "expo-speech",
+      "expo-barcode-scanner",
+      "expo-file-system",
+      "expo-sharing",
+      "expo-print",
+      "expo-updates"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id"
+      }
+    },
+    "owner": "starprint",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-project-id"
+    }
+  },
+  "eas": {
+    "projectId": "your-project-id",
+    "cli": {
+      "version": ">= 5.9.1"
+    },
+    "build": {
+      "development": {
+        "developmentClient": true,
+        "distribution": "internal"
+      },
+      "preview": {
+        "distribution": "internal"
+      },
+      "production": {
+        "autoIncrement": true
+      }
+    },
+    "submit": {
+      "production": {}
+    }
+  }
+}

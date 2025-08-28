@@ -5,11 +5,36 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
-import { Building2, Plus, Search, Eye, Edit, Phone, Mail, MapPin, User } from 'lucide-react';
+import { 
+  Building2, 
+  Plus, 
+  Search, 
+  Eye, 
+  Edit, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  User, 
+  TrendingUp, 
+  AlertTriangle, 
+  Clock, 
+  Star, 
+  DollarSign, 
+  Target, 
+  Users, 
+  Calendar,
+  ArrowUpRight,
+  ArrowDownRight,
+  CheckCircle,
+  Zap
+} from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import AddClientModal from './AddClientModal';
 import EditClientModal from './EditClientModal';
+import QuickInsights from './QuickInsights';
+import ClientRegistrationSummary from './ClientRegistrationSummary';
 
 interface Client {
   id: string;
@@ -28,6 +53,13 @@ interface Client {
   addresses?: ClientAddress[];
   contacts?: ClientContact[];
   persons?: ClientPerson[];
+  // Novos campos para métricas
+  last_contact?: string;
+  revenue_potential?: number;
+  satisfaction_score?: number;
+  risk_level?: 'low' | 'medium' | 'high';
+  next_action?: string;
+  priority?: 'high' | 'medium' | 'low';
 }
 
 interface ClientAddress {
@@ -64,6 +96,17 @@ interface ClientPerson {
   is_decision_maker: boolean;
 }
 
+interface QuickMetrics {
+  totalClients: number;
+  strategicClients: number;
+  activeClients: number;
+  prospects: number;
+  highPriority: number;
+  overdueContacts: number;
+  totalRevenue: number;
+  avgSatisfaction: number;
+}
+
 const ClientsManagement = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [filteredClients, setFilteredClients] = useState<Client[]>([]);
@@ -71,8 +114,126 @@ const ClientsManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [selectedPriority, setSelectedPriority] = useState<string>('all');
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [viewDetailsOpen, setViewDetailsOpen] = useState(false);
+  const [activeView, setActiveView] = useState<'list' | 'kanban' | 'analytics'>('list');
+  const [quickMetrics, setQuickMetrics] = useState<QuickMetrics>({
+    totalClients: 0,
+    strategicClients: 0,
+    activeClients: 0,
+    prospects: 0,
+    highPriority: 0,
+    overdueContacts: 0,
+    totalRevenue: 0,
+    avgSatisfaction: 0
+  });
+
+  // Insights simulados para demonstração
+  const insights = [
+    {
+      id: '0',
+      type: 'action' as const,
+      title: 'Cadastrar Novo Cliente',
+      description: 'Adicione um novo cliente ao sistema com informações completas',
+      metric: 'Formulário Completo',
+      trend: 'stable' as const,
+      priority: 'medium' as const,
+      action: {
+        label: 'Cadastrar',
+        icon: <Plus className="h-3 w-3" />,
+        onClick: () => {
+          // Abrir o modal de cadastro
+          const addButton = document.querySelector('[data-add-client]') as HTMLButtonElement;
+          if (addButton) addButton.click();
+        }
+      }
+    },
+    {
+      id: '1',
+      type: 'warning' as const,
+      title: 'Clientes em Risco',
+      description: '5 clientes estratégicos com pagamento em atraso há mais de 30 dias',
+      metric: '5 clientes',
+      trend: 'up' as const,
+      priority: 'high' as const,
+      action: {
+        label: 'Ver Detalhes',
+        icon: <AlertTriangle className="h-3 w-3" />,
+        onClick: () => console.log('Ver clientes em risco')
+      }
+    },
+    {
+      id: '2',
+      type: 'success' as const,
+      title: 'Meta de Conversão',
+      description: 'Taxa de conversão 15% acima da meta mensal',
+      metric: '+15%',
+      trend: 'up' as const,
+      priority: 'medium' as const,
+      action: {
+        label: 'Ver Relatório',
+        icon: <TrendingUp className="h-3 w-3" />,
+        onClick: () => console.log('Ver relatório de conversão')
+      }
+    },
+    {
+      id: '3',
+      type: 'action' as const,
+      title: 'Prospects Qualificados',
+      description: '12 prospects qualificados aguardando contato comercial',
+      metric: '12 prospects',
+      trend: 'stable' as const,
+      priority: 'medium' as const,
+      action: {
+        label: 'Contatar',
+        icon: <Phone className="h-3 w-3" />,
+        onClick: () => console.log('Contatar prospects')
+      }
+    },
+    {
+      id: '4',
+      type: 'info' as const,
+      title: 'Satisfação Cliente',
+      description: 'Score médio de satisfação aumentou 0.3 pontos',
+      metric: '+0.3 pts',
+      trend: 'up' as const,
+      priority: 'low' as const,
+      action: {
+        label: 'Ver Feedback',
+        icon: <Star className="h-3 w-3" />,
+        onClick: () => console.log('Ver feedback dos clientes')
+      }
+    },
+    {
+      id: '5',
+      type: 'warning' as const,
+      title: 'Contatos em Atraso',
+      description: '8 clientes sem contato há mais de 45 dias',
+      metric: '8 clientes',
+      trend: 'down' as const,
+      priority: 'high' as const,
+      action: {
+        label: 'Agendar Contatos',
+        icon: <Calendar className="h-3 w-3" />,
+        onClick: () => console.log('Agendar contatos')
+      }
+    },
+    {
+      id: '6',
+      type: 'success' as const,
+      title: 'Receita Mensal',
+      description: 'Receita 8% acima da meta do mês',
+      metric: '+8%',
+      trend: 'up' as const,
+      priority: 'medium' as const,
+      action: {
+        label: 'Ver Detalhes',
+        icon: <DollarSign className="h-3 w-3" />,
+        onClick: () => console.log('Ver detalhes da receita')
+      }
+    }
+  ];
 
   useEffect(() => {
     fetchClients();
@@ -80,7 +241,8 @@ const ClientsManagement = () => {
 
   useEffect(() => {
     filterClients();
-  }, [clients, searchTerm, selectedType, selectedStatus]);
+    calculateQuickMetrics();
+  }, [clients, searchTerm, selectedType, selectedStatus, selectedPriority]);
 
   const fetchClients = async () => {
     try {
@@ -96,7 +258,18 @@ const ClientsManagement = () => {
 
       if (error) throw error;
 
-      setClients(clientsData || []);
+      // Adicionar dados simulados para demonstração
+      const enhancedClients = (clientsData || []).map(client => ({
+        ...client,
+        last_contact: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+        revenue_potential: Math.floor(Math.random() * 100000) + 10000,
+        satisfaction_score: Math.floor(Math.random() * 2) + 3.5,
+        risk_level: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)] as 'low' | 'medium' | 'high',
+        next_action: ['Follow-up', 'Proposta', 'Reunião', 'Renovação'][Math.floor(Math.random() * 4)],
+        priority: ['high', 'medium', 'low'][Math.floor(Math.random() * 3)] as 'high' | 'medium' | 'low'
+      }));
+
+      setClients(enhancedClients);
     } catch (error) {
       console.error('Erro ao carregar clientes:', error);
       toast({
@@ -107,6 +280,24 @@ const ClientsManagement = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const calculateQuickMetrics = () => {
+    const metrics: QuickMetrics = {
+      totalClients: clients.length,
+      strategicClients: clients.filter(c => c.client_type === 'strategic').length,
+      activeClients: clients.filter(c => c.status === 'active').length,
+      prospects: clients.filter(c => c.client_type === 'prospect').length,
+      highPriority: clients.filter(c => c.priority === 'high').length,
+      overdueContacts: clients.filter(c => {
+        const lastContact = new Date(c.last_contact || c.created_at);
+        const daysSinceContact = (Date.now() - lastContact.getTime()) / (1000 * 60 * 60 * 24);
+        return daysSinceContact > 30;
+      }).length,
+      totalRevenue: clients.reduce((sum, c) => sum + (c.revenue_potential || 0), 0),
+      avgSatisfaction: clients.reduce((sum, c) => sum + (c.satisfaction_score || 0), 0) / clients.length || 0
+    };
+    setQuickMetrics(metrics);
   };
 
   const filterClients = () => {
@@ -127,6 +318,10 @@ const ClientsManagement = () => {
 
     if (selectedStatus !== 'all') {
       filtered = filtered.filter(client => client.status === selectedStatus);
+    }
+
+    if (selectedPriority !== 'all') {
+      filtered = filtered.filter(client => client.priority === selectedPriority);
     }
 
     setFilteredClients(filtered);
@@ -151,9 +346,33 @@ const ClientsManagement = () => {
     }
   };
 
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'bg-destructive text-destructive-foreground';
+      case 'medium': return 'bg-warning text-warning-foreground';
+      case 'low': return 'bg-success text-success-foreground';
+      default: return 'bg-muted text-muted-foreground';
+    }
+  };
+
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case 'high': return 'bg-destructive text-destructive-foreground';
+      case 'medium': return 'bg-warning text-warning-foreground';
+      case 'low': return 'bg-success text-success-foreground';
+      default: return 'bg-muted text-muted-foreground';
+    }
+  };
+
   const handleViewDetails = (client: Client) => {
     setSelectedClient(client);
     setViewDetailsOpen(true);
+  };
+
+  const getDaysSinceContact = (lastContact: string) => {
+    const lastContactDate = new Date(lastContact);
+    const daysSince = (Date.now() - lastContactDate.getTime()) / (1000 * 60 * 60 * 24);
+    return Math.floor(daysSince);
   };
 
   if (loading) {
@@ -162,7 +381,7 @@ const ClientsManagement = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Building2 className="h-5 w-5" />
-            Cadastro de Clientes
+            Painel de Clientes
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -178,14 +397,100 @@ const ClientsManagement = () => {
 
   return (
     <div className="space-y-6">
+      {/* Métricas Rápidas */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="shadow-soft border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total de Clientes</CardTitle>
+            <Building2 className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-foreground">{quickMetrics.totalClients}</div>
+            <div className="flex items-center text-xs text-muted-foreground">
+              <ArrowUpRight className="h-3 w-3 text-success mr-1" />
+              +{Math.floor(quickMetrics.totalClients * 0.12)} este mês
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-soft border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Receita Potencial</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-primary">
+              R$ {(quickMetrics.totalRevenue / 1000).toFixed(0)}k
+            </div>
+            <div className="flex items-center text-xs text-muted-foreground">
+              <Target className="h-3 w-3 text-primary mr-1" />
+              Meta: R$ 2.5M
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-soft border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Satisfação Média</CardTitle>
+            <Star className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-warning">
+              {quickMetrics.avgSatisfaction.toFixed(1)}/5.0
+            </div>
+            <div className="flex items-center text-xs text-muted-foreground">
+              <CheckCircle className="h-3 w-3 text-success mr-1" />
+              {quickMetrics.avgSatisfaction >= 4.0 ? 'Excelente' : 'Bom'}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-soft border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Ações Prioritárias</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-destructive">{quickMetrics.highPriority}</div>
+            <div className="flex items-center text-xs text-muted-foreground">
+              <Clock className="h-3 w-3 text-warning mr-1" />
+              {quickMetrics.overdueContacts} contatos em atraso
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Insights Rápidos */}
+      <QuickInsights insights={insights} />
+
+      {/* Resumo de Cadastro */}
+      <ClientRegistrationSummary 
+        onStartRegistration={() => {
+          const addButton = document.querySelector('[data-add-client]') as HTMLButtonElement;
+          if (addButton) addButton.click();
+        }}
+      />
+
+      {/* Controles e Filtros */}
       <Card className="shadow-soft border-border">
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <CardTitle className="flex items-center gap-2 font-title tracking-title">
               <Building2 className="h-5 w-5" />
-              Cadastro de Clientes
+              Gestão de Clientes
             </CardTitle>
-            <AddClientModal onClientAdded={fetchClients} />
+            <div className="flex items-center gap-4">
+              <AddClientModal onClientAdded={fetchClients} />
+              <div className="flex items-center gap-2">
+                <Tabs value={activeView} onValueChange={(value: 'list' | 'kanban' | 'analytics') => setActiveView(value)}>
+                  <TabsList>
+                    <TabsTrigger value="list">Lista</TabsTrigger>
+                    <TabsTrigger value="kanban">Kanban</TabsTrigger>
+                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+            </div>
           </div>
         </CardHeader>
         <CardContent>
@@ -226,6 +531,17 @@ const ClientsManagement = () => {
                   <SelectItem value="prospect">Prospect</SelectItem>
                 </SelectContent>
               </Select>
+              <Select value={selectedPriority} onValueChange={setSelectedPriority}>
+                <SelectTrigger className="w-full sm:w-40">
+                  <SelectValue placeholder="Prioridade" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todas as prioridades</SelectItem>
+                  <SelectItem value="high">Alta</SelectItem>
+                  <SelectItem value="medium">Média</SelectItem>
+                  <SelectItem value="low">Baixa</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Results count */}
@@ -233,7 +549,7 @@ const ClientsManagement = () => {
               Mostrando {filteredClients.length} de {clients.length} clientes
             </div>
 
-            {/* Clients list */}
+            {/* Clientes list */}
             <div className="space-y-3">
               {filteredClients.map((client) => (
                 <div 
@@ -254,6 +570,16 @@ const ClientsManagement = () => {
                          client.status === 'inactive' ? 'Inativo' : 
                          client.status === 'suspended' ? 'Suspenso' : 'Prospect'}
                       </Badge>
+                      <Badge className={getPriorityColor(client.priority || 'low')}>
+                        {client.priority === 'high' ? 'Alta' : 
+                         client.priority === 'medium' ? 'Média' : 'Baixa'} Prioridade
+                      </Badge>
+                      {client.risk_level && (
+                        <Badge className={getRiskColor(client.risk_level)}>
+                          Risco {client.risk_level === 'high' ? 'Alto' : 
+                                 client.risk_level === 'medium' ? 'Médio' : 'Baixo'}
+                        </Badge>
+                      )}
                     </div>
                     <h4 className="font-medium text-lg">{client.company_name}</h4>
                     {client.trade_name && (
@@ -265,7 +591,32 @@ const ClientsManagement = () => {
                       {client.size && <span>• {client.size === 'micro' ? 'Micro' : 
                                              client.size === 'small' ? 'Pequena' : 
                                              client.size === 'medium' ? 'Média' : 'Grande'}</span>}
+                      {client.revenue_potential && (
+                        <span className="flex items-center gap-1">
+                          <DollarSign className="h-3 w-3" />
+                          R$ {(client.revenue_potential / 1000).toFixed(0)}k
+                        </span>
+                      )}
+                      {client.satisfaction_score && (
+                        <span className="flex items-center gap-1">
+                          <Star className="h-3 w-3" />
+                          {client.satisfaction_score.toFixed(1)}
+                        </span>
+                      )}
+                      {client.last_contact && (
+                        <span className="flex items-center gap-1">
+                          <Calendar className="h-3 w-3" />
+                          {getDaysSinceContact(client.last_contact)} dias
+                        </span>
+                      )}
                     </div>
+                    {client.next_action && (
+                      <div className="mt-2">
+                        <Badge variant="outline" className="text-xs">
+                          Próxima ação: {client.next_action}
+                        </Badge>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="flex items-center gap-2">
@@ -342,9 +693,66 @@ const ClientsManagement = () => {
                                selectedClient.size === 'medium' ? 'Média' : 'Grande'}
                       </Badge>
                     )}
+                    {selectedClient.priority && (
+                      <Badge className={getPriorityColor(selectedClient.priority)}>
+                        Prioridade: {selectedClient.priority === 'high' ? 'Alta' : 
+                                   selectedClient.priority === 'medium' ? 'Média' : 'Baixa'}
+                      </Badge>
+                    )}
+                    {selectedClient.risk_level && (
+                      <Badge className={getRiskColor(selectedClient.risk_level)}>
+                        Risco: {selectedClient.risk_level === 'high' ? 'Alto' : 
+                               selectedClient.risk_level === 'medium' ? 'Médio' : 'Baixo'}
+                      </Badge>
+                    )}
                   </div>
                 </div>
               </div>
+
+              {/* Métricas Comerciais */}
+              {(selectedClient.revenue_potential || selectedClient.satisfaction_score || selectedClient.last_contact) && (
+                <div>
+                  <h3 className="font-medium mb-2 flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4" />
+                    Métricas Comerciais
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {selectedClient.revenue_potential && (
+                      <div className="p-3 bg-muted rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <DollarSign className="h-4 w-4 text-primary" />
+                          <span className="font-medium">Receita Potencial</span>
+                        </div>
+                        <p className="text-lg font-bold text-primary">
+                          R$ {selectedClient.revenue_potential.toLocaleString('pt-BR')}
+                        </p>
+                      </div>
+                    )}
+                    {selectedClient.satisfaction_score && (
+                      <div className="p-3 bg-muted rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Star className="h-4 w-4 text-warning" />
+                          <span className="font-medium">Satisfação</span>
+                        </div>
+                        <p className="text-lg font-bold text-warning">
+                          {selectedClient.satisfaction_score.toFixed(1)}/5.0
+                        </p>
+                      </div>
+                    )}
+                    {selectedClient.last_contact && (
+                      <div className="p-3 bg-muted rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Calendar className="h-4 w-4 text-muted-foreground" />
+                          <span className="font-medium">Último Contato</span>
+                        </div>
+                        <p className="text-lg font-bold text-foreground">
+                          {getDaysSinceContact(selectedClient.last_contact)} dias atrás
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Addresses */}
               {selectedClient.addresses && selectedClient.addresses.length > 0 && (

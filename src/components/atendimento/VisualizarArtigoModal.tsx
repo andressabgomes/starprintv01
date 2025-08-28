@@ -32,7 +32,8 @@ const VisualizarArtigoModal = ({ isOpen, onClose, artigo, categoria, onAvaliar, 
   const { toast } = useToast();
 
   const handleCopiarLink = () => {
-    const link = `${window.location.origin}/kb/artigo/${artigo.id}`;
+    // Como não temos rota específica para artigos, vamos usar o link atual
+    const link = `${window.location.origin}${window.location.pathname}#artigo-${artigo.id}`;
     navigator.clipboard.writeText(link);
     toast({
       title: "Link copiado!",
@@ -45,7 +46,7 @@ const VisualizarArtigoModal = ({ isOpen, onClose, artigo, categoria, onAvaliar, 
       navigator.share({
         title: artigo.titulo,
         text: artigo.conteudo.substring(0, 100) + '...',
-        url: `${window.location.origin}/kb/artigo/${artigo.id}`
+        url: `${window.location.origin}${window.location.pathname}#artigo-${artigo.id}`
       });
     } else {
       handleCopiarLink();

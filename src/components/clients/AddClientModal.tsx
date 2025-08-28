@@ -292,7 +292,10 @@ const AddClientModal: React.FC<AddClientModalProps> = ({ onClientAdded }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-2">
+        <Button 
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
+          data-add-client
+        >
           <Plus className="h-4 w-4" />
           Novo Cliente
         </Button>
